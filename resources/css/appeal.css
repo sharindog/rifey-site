@@ -1,0 +1,11 @@
+/* Загружается ровно на одном экране – AppealEditScreen */
+
+/* 1. Белый фон и тёмный текст у инпутов readonly / disabled */
+.form-control,
+textarea[readonly] {
+    background: #fff !important;
+    color: #4a5568 !important;
+}
+
+/* 2. Толстый шрифт для подписей полей */
+.mw-250 { font-weight: 600; }
