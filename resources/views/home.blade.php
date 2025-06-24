@@ -111,7 +111,7 @@
         <div class="max-w-3xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold text-[#7BC043] mb-4">Горячая линия</h2>
             <p class="text-graphite text-lg mb-2">Приём обращений ежедневно с 8:00 до 20:00</p>
-            <p class="text-2xl font-bold text-[#7BC043]">8 800 100-84-44</p>
+            <p class="text-2xl font-bold text-[#7BC043]">8-800-234-02-43</p>
             <p class="text-gray-500 text-sm">звонок бесплатный</p>
         </div>
     </section>
