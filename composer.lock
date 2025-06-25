@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29356c5e005e00b30d42803aa95013a3",
+    "content-hash": "74184790d793889b6dd14dcbb0c5ae7c",
     "packages": [
         {
             "name": "brick/math",
@@ -2839,6 +2839,49 @@
                 }
             ],
             "time": "2025-05-03T22:52:20+00:00"
+        },
+        {
+            "name": "orchidcommunity/tinymce",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchidcommunity/TinyMCE.git",
+                "reference": "ef337fb202465392e683a2875bba62a088fb278a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchidcommunity/TinyMCE/zipball/ef337fb202465392e683a2875bba62a088fb278a",
+                "reference": "ef337fb202465392e683a2875bba62a088fb278a",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OrchidCommunity\\TinyMCE\\TinyMCEServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OrchidCommunity\\TinyMCE\\": "src/"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "tabuna",
+                    "email": "bliz48rus@gmail.com"
+                }
+            ],
+            "description": "TinyMCE editor for Laravel Orchid",
+            "support": {
+                "source": "https://github.com/orchidcommunity/TinyMCE/tree/2.2.1",
+                "issues": "https://github.com/orchidcommunity/TinyMCE/issues"
+            },
+            "time": "2025-01-16T09:43:34+00:00"
         },
         {
             "name": "phpoption/phpoption",

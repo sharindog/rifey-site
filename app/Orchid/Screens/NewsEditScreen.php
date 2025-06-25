@@ -9,16 +9,17 @@ use Illuminate\Support\Str;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Input;
-use Orchid\Screen\Fields\SimpleMDE;
+use Orchid\Screen\Fields\Quill;      // ← Quill WYSIWYG
 use Orchid\Screen\Fields\Switcher;
 use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
+use OrchidCommunity\TinyMCE\TinyMCE;
 
 class NewsEditScreen extends Screen
 {
-    public $exists = false;
+    public bool $exists = false;
 
     public function query(News $news): array
     {
@@ -44,7 +45,7 @@ class NewsEditScreen extends Screen
         return [
             Layout::rows([
                 Input::make('news.title')
-                    ->title('Заголовок новости')
+                    ->title('Заголовок')
                     ->required(),
 
                 Input::make('news.slug')
@@ -54,12 +55,11 @@ class NewsEditScreen extends Screen
 
                 TextArea::make('news.excerpt')
                     ->title('Краткое описание')
-                    ->rows(3),
+                    ->rows(8),
 
-                SimpleMDE::make('news.content')
-                    ->title('Текст новости (Markdown)')
-                    ->rows(10)
-                    ->required(),
+                TinyMCE::make('news.content')
+                ->title('Текст новости')
+                ->height(500),
 
                 Switcher::make('news.is_published')
                     ->title('Опубликовано')
@@ -73,7 +73,6 @@ class NewsEditScreen extends Screen
         $data                 = $request->input('news');
         $data['slug']         = Str::slug($data['title']);
         $data['is_published'] = (bool) ($data['is_published'] ?? false);
-
         $data['published_at'] = $data['is_published'] ? Carbon::now() : null;
 
         $news->fill($data)->save();

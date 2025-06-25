@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Attachment\Attachable;
 use Orchid\Screen\AsSource;
 
 class News extends Model
 {
-    use AsSource;
+    use AsSource, Attachable;
 
     protected $table = 'news';
 

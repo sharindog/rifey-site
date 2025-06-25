@@ -31,7 +31,9 @@ use App\Orchid\Screens\Video\VideoCategoryEditScreen;
 use App\Orchid\Screens\Video\VideoCategoryListScreen;
 use App\Orchid\Screens\Video\VideoEditScreen;
 use App\Orchid\Screens\Video\VideoListScreen;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Tabuna\Breadcrumbs\Trail;
 
 /*
@@ -120,6 +122,13 @@ Route::screen('/examples/cards', ExampleCardsScreen::class)->name('platform.exam
 Route::screen('news', NewsListScreen::class)->name('platform.news');
 Route::screen('news/create', NewsEditScreen::class)->name('platform.news.create');
 Route::screen('news/{news}/edit', NewsEditScreen::class)->name('platform.news.edit');
+Route::post('/platform/tinymce-upload', function (Request $request) {
+    $path = $request->file('file')->store('tinymce', 'public');
+
+    return response()->json([
+        'location' => Storage::url($path),
+    ]);
+});
 
 Route::screen('appeals', AppealListScreen::class)
     ->name('platform.appeals')
@@ -163,3 +172,5 @@ Route::screen('video/categories/{category}/edit', VideoCategoryEditScreen::class
 Route::screen('videos',                    VideoListScreen::class)->name('platform.video.list');
 Route::screen('videos/create',             VideoEditScreen::class)->name('platform.video.create');
 Route::screen('videos/{video}/edit',       VideoEditScreen::class)->name('platform.video.edit');
+
+
