@@ -74,7 +74,6 @@ class NewsEditScreen extends Screen
         $data['slug']         = Str::slug($data['title']);
         $data['is_published'] = (bool) ($data['is_published'] ?? false);
 
-        // ▼ логика публикации
         $data['published_at'] = $data['is_published'] ? Carbon::now() : null;
 
         $news->fill($data)->save();
