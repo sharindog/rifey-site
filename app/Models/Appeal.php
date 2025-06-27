@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Orchid\Attachment\Attachable;
 use Orchid\Attachment\Models\Attachment;
 use Orchid\Screen\AsSource;
@@ -53,8 +54,6 @@ class Appeal extends Model
 
         // служебные
         'status',
-        'operator_id',
-        'answer',
     ];
 
     /* ─── преобразования ───────────────────────────────────────────*/
@@ -73,6 +72,13 @@ class Appeal extends Model
     public function statusLogs(): HasMany
     {
         return $this->hasMany(AppealStatusLog::class);
+    }
+
+    public function files(): MorphToMany
+    {
+        return $this
+            ->attachments()
+            ->wherePivot('group', 'files');
     }
 
 }

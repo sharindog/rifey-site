@@ -23,10 +23,12 @@ class AppealRequest extends FormRequest
             'settlement' => ['required','string','max:120'],
             'body'       => ['required','string','max:500'],
             'email'      => ['required','email'],
-            'phone'      => ['required','string','max:30'],
-            'is_repeat'  => ['boolean'],
-            'prev_number'=> ['nullable','string','max:30', 'required_if:is_repeat,1'],
-            'files.*'    => ['sometimes','file','max:4096'],
+            'phone' => ['required',
+                'regex:/^\\+7\\s\\(\\d{3}\\)\\s\\d{3}-\\d{2}-\\d{2}$/'],
+            'is_repeat'  => ['sometimes','boolean'],
+            'prev_number'=> ['required_if:is_repeat,1', 'nullable', 'digits_between:1,11'],
+            'files'   => 'nullable|array',
+            'files.*' => ['file', 'mimes:txt,jpg,jpeg,png,zip,rar,doc,docx,xls,xlsx,pdf', 'max:15360'],
             'consent'    => ['accepted'],
         ];
 
@@ -42,5 +44,21 @@ class AppealRequest extends FormRequest
         return $cat === 'company'
             ? array_merge($base, $company)
             : array_merge($base, $individual);
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'topic' => 'тема обращения',
+            'prev_number' => 'номер предыдущего обращения',
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'topic.required' => 'Пожалуйста, выберите тему обращения.',
+            'prev_number.required_if' =>
+                'Пожалуйста, укажите номер предыдущего обращения.',
+        ];
     }
 }

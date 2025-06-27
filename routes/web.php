@@ -51,3 +51,5 @@ Route::get('/media/photos', [PageController::class, 'photos'])
 Route::get('/media/videos', [PageController::class, 'videos'])
     ->name('media.videos');
 
+Route::get('/privacy', [PageController::class, 'privacy'])->name('about.privacy');
+

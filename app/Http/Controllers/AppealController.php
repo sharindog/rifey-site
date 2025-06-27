@@ -4,43 +4,52 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AppealRequest;
 use App\Models\Appeal;
-use Illuminate\Support\Facades\DB;
-use Orchid\Attachment\File;
-use Orchid\Attachment\Models\Attachment;
+use App\Mail\AppealCreated;
+use Illuminate\Support\Facades\Mail;
+use Orchid\Attachment\File;       // Orchid-класс для загрузки
+use Illuminate\Http\Request;
 
 class AppealController extends Controller
 {
-    /* форма */
+    /**
+     * Показывает форму создания обращения.
+     */
     public function create()
     {
+        // Если ваш Blade лежит в resources/views/appeal/create.blade.php:
         return view('appeal.create');
     }
 
-    /* приём POST */
-    public function store(AppealRequest $req)
+    /**
+     * Обрабатывает POST-запрос и сохраняет новое обращение.
+     */
+    public function store(AppealRequest $request)
     {
-        DB::transaction(function () use ($req) {
+        // 1) Сохраняем данные из формы в БД
+        $data   = $request->validated();
+        $appeal = Appeal::create($data);
 
-            $data  = $req->validated();
-            $files = $req->file('files', []);
+        // 2) Загружаем файлы в Orchid и «пришиваем» их к модели
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $uploadedFile) {
+                $attachment = (new File($uploadedFile))
+                    ->path("appeals/{$appeal->id}")  // опционально: свой путь
+                    ->load();                       // сохраняет в disk и в таблицу attachments
 
-            // убираем тех. поля
-            unset($data['files'], $data['consent']);
-
-            /** @var Appeal $appeal */
-            $appeal = Appeal::create($data);
-
-            /* -------- загружаем каждое вложение -------- */
-            foreach ($files as $file) {
-                // создаём Attachment и сохраняем файл
-                /** @var Attachment $attach */
-                $attach = (new File($file))->load();   // <-- ключевая строка
-
-                // привязываем к обращению
-                $appeal->attachments()->syncWithoutDetaching($attach->id);
+                // привязываем attachment к модели Appeal
+                $appeal->attachments()->attach($attachment->id);
             }
-        });
 
-        return back()->with('toast', 'Ваше обращение принято!');
+        }
+
+        // 3) Отправляем Mailable пользователю
+        Mail::to($appeal->email)
+            ->send(new AppealCreated($appeal));
+
+        // 4) Возврат назад с «тоастом» и номером обращения
+        return back()->with('toast',
+            "Ваше обращение №{$appeal->id} успешно отправлено. " .
+            "Копия направлена на {$appeal->email}."
+        );
     }
 }

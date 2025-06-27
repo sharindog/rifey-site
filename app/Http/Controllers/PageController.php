@@ -83,4 +83,9 @@ class PageController extends Controller
 
         return view('media.videos', compact('categories'));
     }
+
+    public function privacy(): View
+    {
+        return view('about.privacy');
+    }
 }

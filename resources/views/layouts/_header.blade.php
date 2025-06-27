@@ -18,6 +18,7 @@
                             ['text' => 'Мусоросортировочные комплексы', 'url' => route('about.msk')],
                             ['text' => 'ЭКОдом', 'url' => route('about.ecohouse')],
                             ['text' => 'Раскрытие информации', 'url' => route('about.disclosure')],
+                            ['text' => 'Политика обработки ПД', 'url' => route('about.privacy')],
                         ],
                         'Клиентам' => [
                             ['text' => 'Деятельность регионального оператора', 'url' => route('clients.activity')],

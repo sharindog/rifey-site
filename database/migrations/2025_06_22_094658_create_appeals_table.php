@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('appeals', function (Blueprint $t) {
             $t->id();
 
-            // категория заявителя
             $t->enum('category', ['individual', 'company']);
 
-            // тема обращения
             $t->enum('topic', [
                 'contract',        // заключение договора
                 'coop_offer',      // предложение о сотрудничестве
@@ -30,30 +28,20 @@ return new class extends Migration
             ]);
 
             $t->string('settlement', 120);
-            $t->text('body');               // ≤500 символов контролируем на уровне валидации
+            $t->text('body');
 
-            // поля для физического лица
             $t->string('fio', 150)->nullable();
 
-            // поля для юрлица
             $t->string('inn', 12)->nullable();
             $t->string('contact_name', 150)->nullable();
 
-            // общий контакт
             $t->string('email');
             $t->string('phone', 30);
 
-            // повторное обращение
             $t->boolean('is_repeat')->default(false);
             $t->string('prev_number', 30)->nullable();
 
-            // служебные поля
             $t->enum('status', ['new','in_work','answered','closed'])->default('new');
-            $t->foreignId('operator_id')->nullable()
-                ->constrained('users')
-                ->nullOnDelete();
-
-            $t->text('answer')->nullable();
 
             $t->timestamps();
         });

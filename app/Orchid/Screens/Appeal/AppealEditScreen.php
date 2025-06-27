@@ -5,7 +5,7 @@ namespace App\Orchid\Screens\Appeal;
 use App\Models\Appeal;
 use Carbon\Carbon;
 use Orchid\Screen\Screen;
-use Orchid\Screen\Fields\{Label, TextArea, Select, CheckBox};
+use Orchid\Screen\Fields\{Label, Select, CheckBox};
 use Orchid\Screen\Actions\{Link, Button, ModalToggle};
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Layouts\Modal;
@@ -15,7 +15,6 @@ class AppealEditScreen extends Screen
 {
     public ?Appeal $appeal = null;
 
-    /* ───── данные ───── */
     public function query(Appeal $appeal): iterable
     {
         Carbon::setLocale('ru');
@@ -24,13 +23,14 @@ class AppealEditScreen extends Screen
         return [
             'appeal'            => $appeal,
             'logs'              => $appeal->statusLogs->sortByDesc('changed_at')->values(),
-            'category_readable' => $appeal->category === 'individual' ? 'Физ. лицо' : 'Юр. лицо',
+            'category_readable' => $appeal->category === 'individual'
+                ? 'Физ. лицо'
+                : 'Юр. лицо',
             'topic_readable'    => __('appeal.topic.' . $appeal->topic),
             'created_human'     => $appeal->created_at->translatedFormat('j F Y H:i'),
         ];
     }
 
-    /* ───── заголовок ───── */
     public function name(): ?string
     {
         return 'Карточка обращения № ' . $this->appeal->id;
@@ -41,14 +41,11 @@ class AppealEditScreen extends Screen
         return ['appeals.view'];
     }
 
-    /* ───── ПОДКЛЮЧАЕМ CSS ТОЛЬКО ДЛЯ ЭТОГО ЭКРАНА ───── */
     public function styles(): iterable
     {
-        // путь, который выдал Vite после сборки
         return [asset('build/assets/appeal.css')];
     }
 
-    /* ───── кнопки ───── */
     public function commandBar(): iterable
     {
         return [
@@ -66,7 +63,6 @@ class AppealEditScreen extends Screen
         ];
     }
 
-    /* ───── layout ───── */
     public function layout(): iterable
     {
         return array_merge(
@@ -74,38 +70,26 @@ class AppealEditScreen extends Screen
 
             [
                 Layout::modal('historyModal', [
-
                     Layout::table('logs', [
-
                         TD::make('changed_at', 'Дата')
-                            ->render(fn ($l) => $l->changed_at
-                                ->translatedFormat('d.m.Y H:i'))
+                            ->render(fn ($l) => $l->changed_at->translatedFormat('d.m.Y H:i'))
                             ->sort(),
-
                         TD::make('user.name', 'Кто'),
-
                         TD::make('from_status', 'Было')
                             ->render(fn ($l) => __('appeal.status.' . $l->from_status)),
-
                         TD::make('to_status', 'Стало')
                             ->render(fn ($l) => __('appeal.status.' . $l->to_status)),
                     ]),
-
                 ])
-                    ->size(\Orchid\Screen\Layouts\Modal::SIZE_LG)
-                    ->withoutApplyButton(),   // <── кнопка «Применить» исчезает
+                    ->size(Modal::SIZE_LG)
+                    ->withoutApplyButton(),
             ]
         );
     }
 
-
-
-
-    /* ─── блоки карточки ─── */
     private function cardBlocks(): array
     {
         $rows = [
-
             Layout::rows([
                 Select::make('appeal.status')
                     ->title('Статус')
@@ -123,12 +107,10 @@ class AppealEditScreen extends Screen
                 Label::make('topic_readable')->title('Тема'),
                 Label::make('appeal.settlement')->title('Нас. пункт'),
 
-                /* вместо TextArea в cardBlocks()  */
                 Label::make()
                     ->title('Текст обращения')
-                    ->value(fn () => nl2br(e($this->appeal->body)))  // переносы сохраняем
-                    ->asHtml(),                                      // разрешаем <br>
-
+                    ->value(fn () => nl2br(e($this->appeal->body)))
+                    ->asHtml(),
             ]),
         ];
 
@@ -158,6 +140,7 @@ class AppealEditScreen extends Screen
             ]);
         }
 
+        // Здесь подключаем новый partial
         $rows[] = Layout::view(
             'appeal.partials.attachments',
             ['attachments' => $this->appeal->attachments]
@@ -166,7 +149,6 @@ class AppealEditScreen extends Screen
         return $rows;
     }
 
-    /* ─── сохранение ─── */
     public function save(Appeal $appeal)
     {
         $data = request()->validate([
@@ -174,7 +156,9 @@ class AppealEditScreen extends Screen
         ])['appeal'];
 
         $appeal->fill($data)->save();
+
         \Orchid\Support\Facades\Toast::info('Статус обновлён');
+
         return back();
     }
 }
