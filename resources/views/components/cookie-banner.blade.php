@@ -16,7 +16,7 @@
                     <p class="text-gray-600 mt-1">
                         Эти небольшие файлы сохраняют ваши настройки и помогают удобно использовать сайт.
                         Продолжая использовать сайт, вы соглашаетесь с нашей
-                        <a href="/about/privacy" class="text-green-700 underline hover:text-green-800">политикой конфиденциальности</a>.
+                        <a href="/privacy" class="text-green-700 underline hover:text-green-800">политикой конфиденциальности</a>.
                     </p>
                 </div>
                 <button
