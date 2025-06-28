@@ -1,0 +1,107 @@
+/* === CERA THIN === */
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Thin-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Thin-Web.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Thin Italic-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Thin Italic-Web.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* === CERA LIGHT === */
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Light-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Light-Web.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Light Italic-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Light Italic-Web.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* === CERA REGULAR === */
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Regular-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Regular-Web.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Regular Italic-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Regular Italic-Web.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* === CERA MEDIUM === */
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Medium-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Medium-Web.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Medium Italic-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Medium Italic-Web.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* === CERA BOLD === */
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Bold-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Bold-Web.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Bold Italic-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Bold Italic-Web.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* === CERA BLACK === */
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Black-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Black-Web.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Cera';
+    src: url('../fonts/cera/Cera-Black Italic-Web.woff2') format('woff2'),
+    url('../fonts/cera/Cera-Black Italic-Web.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}

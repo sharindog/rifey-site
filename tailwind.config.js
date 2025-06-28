@@ -12,7 +12,7 @@ export default {
                 'gray-light': '#f5f5f5',      // фон секций
             },
             fontFamily: {
-                sans: ['"Inter"', 'sans-serif'], // подключи Cera Pro отдельно, если нужно
+                sans: ['Cera', 'ui-sans-serif', 'system-ui', 'sans-serif'],
             },
             spacing: {
                 '18': '4.5rem', // 72px
