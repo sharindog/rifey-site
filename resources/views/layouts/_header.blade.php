@@ -58,7 +58,7 @@
             </nav>
 
             <!-- Телефон горячей линии (десктоп) -->
-            <div class="hidden lg:flex flex-col text-right text-xs">
+            <div class="hidden lg:flex flex-col text-right text-sm">
                 <span class="uppercase tracking-wide text-gray-500">Телефон горячей линии</span>
                 <span class="font-semibold text-[#7BC043]">8-800-234-02-43</span>
             </div>
@@ -72,7 +72,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
-        </div> <!-- ← вот это закрытие и было пропущено -->
+        </div>
     </div>
 
     <!-- Мобильное меню -->
