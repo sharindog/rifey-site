@@ -39,6 +39,9 @@
     </div>
 </footer>
 
+{{-- Баннер cookies --}}
+<x-cookie-banner />
+
 @stack('scripts')
 </body>
 </html>

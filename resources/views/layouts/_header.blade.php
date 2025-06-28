@@ -1,7 +1,6 @@
 <header x-data="{ mobileOpen: false, dropdown: null }" class="bg-white shadow-sm">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-20 items-center justify-between">
-
             <!-- Логотип -->
             <a href="{{ route('home') }}" class="flex items-center gap-2">
                 <img src="{{ asset('images/rifey-logo.png') }}" alt="РИФЕЙ" class="h-16 w-auto">
@@ -66,40 +65,50 @@
 
             <!-- Бургер‑меню (моб.) -->
             <button class="p-2 lg:hidden" @click="mobileOpen = !mobileOpen">
-                <x-orchid-icon path="menu" class="h-6 w-6" x-show="!mobileOpen" />
-                <x-orchid-icon path="x" class="h-6 w-6" x-show="mobileOpen" />
+                <svg x-show="!mobileOpen" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+                <svg x-show="mobileOpen" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
             </button>
-        </div>
+        </div> <!-- ← вот это закрытие и было пропущено -->
     </div>
 
     <!-- Мобильное меню -->
     <div x-cloak x-show="mobileOpen" x-transition class="lg:hidden border-t bg-white">
-        <div class="space-y-4 px-4 pt-4 pb-6 text-sm">
-            <a href="{{ route('about') }}" class="mobile-link">Общие сведения</a>
-            <a href="https://nizhny-tagil.hh.ru/employer/4789107" target="_blank" class="mobile-link">Вакансии</a>
-            <a href="{{ route('contacts') }}" class="mobile-link">Контакты</a>
-            <a href="{{ route('appeal.create') }}" class="mobile-link">Обратная связь</a>
+        <div class="px-4 pt-4 pb-6 text-sm space-y-4">
+            @foreach($nav as $label => $items)
+                <div x-data="{ open: false }">
+                    <button
+                            @click="open = !open"
+                            class="flex w-full items-center justify-between text-base font-medium text-gray-800 hover:text-[#69af39]">
+                        {{ $label }}
+                        <svg :class="open ? 'rotate-45 text-[#69af39]' : 'text-gray-400'" class="h-5 w-5 transform transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
 
-            <div class="border-t pt-4">
-                <span class="block text-xs uppercase text-gray-500">Горячая линия</span>
-                <span class="block font-semibold text-[#7BC043]">8-800-234-02-43</span>
+                    <div x-show="open" x-transition class="mt-2 ml-3 space-y-1 text-gray-700">
+                        @foreach($items as $item)
+                            <a href="{{ $item['url'] }}" @if(!empty($item['blank'])) target="_blank" @endif class="block pl-1 border-l border-gray-200 hover:text-[#69af39]">
+                                {{ $item['text'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+
+            <div class="pt-2 space-y-1">
+                <a href="https://zakupki-rifei.rts-tender.ru/" target="_blank" class="block text-base hover:text-[#69af39]">Закупки</a>
+                <a href="{{ route('contacts') }}" class="block text-base hover:text-[#69af39]">Контакты</a>
+                <a href="{{ route('appeal.create') }}" class="block text-base hover:text-[#69af39]">Обратная связь</a>
+            </div>
+
+            <div class="border-t pt-4 text-xs">
+                <span class="block uppercase text-gray-500">Горячая линия</span>
+                <span class="block font-semibold text-[#7BC043] text-base">8-800-234-02-43</span>
             </div>
         </div>
     </div>
 </header>
-
-@push('styles')
-    <style>
-        .mobile-link {
-            display: block;
-            padding: 6px 0;
-            font-size: 15px;
-            font-weight: 500;
-            color: #4a5568;
-            transition: color .2s;
-        }
-        .mobile-link:hover {
-            color: #69af39;
-        }
-    </style>
-@endpush
